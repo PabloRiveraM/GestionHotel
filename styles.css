@@ -1,0 +1,45 @@
+
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .nav-link {
+            color: white !important;
+            transition: all 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+        .card {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 12px;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+        .table th {
+            background-color: #f8f9fa;
+            border-top: none;
+        }
+        .badge {
+            font-size: 0.8em;
+        }
+        .status-pendiente { background-color: #ffc107; }
+        .status-confirmada { background-color: #28a745; }
+        .status-checkin { background-color: #17a2b8; }
+        .status-checkout { background-color: #6c757d; }
+        .status-cancelada { background-color: #dc3545; }
+        .room-available { background-color: #d4edda; }
+        .room-occupied { background-color: #f8d7da; }
+        .room-maintenance { background-color: #fff3cd; }

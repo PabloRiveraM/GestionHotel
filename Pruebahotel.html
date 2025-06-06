@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Hotelera</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="styles.css">    
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="text-center mb-4">
+                        <h4 class="text-white"><i class="fas fa-hotel"></i> Hotel Madre Teresa</h4>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('reservaciones')">
+                                <i class="fas fa-calendar-plus"></i> Nueva Reservación
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('huespedes')">
+                                <i class="fas fa-users"></i> Gestión Huéspedes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('habitaciones')">
+                                <i class="fas fa-bed"></i> Habitaciones
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="showSection('reportes')">
+                                <i class="fas fa-chart-bar"></i> Reportes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+    
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <nav class="navbar navbar-expand-md navbar-light bg-light d-md-none">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#"><i class="fas fa-hotel"></i> Hotel Madre Teresa</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </nav>
+    
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2" id="page-title">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-outline-secondary" onclick="exportData()">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+                
+    
+
+                <!-- Dashboard Section -->
+                <div id="dashboard-section">
+                    <div class="row mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Reservaciones Hoy</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="reservaciones-hoy">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Habitaciones Ocupadas</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="habitaciones-ocupadas">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-bed fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Huéspedes Activos</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="huespedes-activos">0</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Ingresos del Mes</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="ingresos-mes">Q0.00</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-list"></i> Reservaciones Recientes</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="reservaciones-recientes">
+                                            <thead>
+                                                <tr>
+                                                    <th>Huésped</th>
+                                                    <th>Habitación</th>
+                                                    <th>Check-in</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-bed"></i> Estado Habitaciones</h5>
+                                </div>
+                                <div class="card-body" id="estado-habitaciones">
+                                    <!-- Se llena dinámicamente -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nueva Reservación Section -->
+                <div id="reservaciones-section" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-calendar-plus"></i> Nueva Reservación</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="reservacion-form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">Datos del Representante</h6>
+                                        <div class="mb-3">
+                                            <label for="nombre" class="form-label">Nombre Completo *</label>
+                                            <input type="text" class="form-control" id="nombre" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dpi" class="form-label">DPI *</label>
+                                            <input type="text" class="form-control" id="dpi" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telefono" class="form-label">Teléfono *</label>
+                                            <input type="tel" class="form-control" id="telefono" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">Detalles de la Reservación</h6>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="adultos" class="form-label">Adultos *</label>
+                                                    <input type="number" class="form-control" id="adultos" min="1" value="1" onchange="calcularTotal()" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="ninos" class="form-label">Niños (0-12 años)</label>
+                                                    <input type="number" class="form-control" id="ninos" min="0" value="0" onchange="calcularTotal()">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="checkin" class="form-label">Check-in *</label>
+                                                    <input type="date" class="form-control" id="checkin" onchange="calcularTotal()" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="checkout" class="form-label">Check-out *</label>
+                                                    <input type="date" class="form-control" id="checkout" onchange="calcularTotal()" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="habitacion" class="form-label">Habitación *</label>
+                                            <select class="form-select" id="habitacion" onchange="calcularTotal()" required>
+                                                <option value="">Seleccionar habitación...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="card bg-light">
+                                            <div class="card-body">
+                                                <h6>Resumen de Costos</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Subtotal:</span>
+                                                    <span id="subtotal">Q0.00</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>Descuento niños:</span>
+                                                    <span id="descuento">Q0.00</span>
+                                                </div>
+                                                <hr>
+                                                <div class="d-flex justify-content-between fw-bold">
+                                                    <span>Total:</span>
+                                                    <span id="total">Q0.00</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between text-primary">
+                                                    <span>Anticipo (50%):</span>
+                                                    <span id="anticipo">Q0.00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="observaciones" class="form-label">Observaciones</label>
+                                            <textarea class="form-control" id="observaciones" rows="3"></textarea>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="anticipo-pagado">
+                                            <label class="form-check-label" for="anticipo-pagado">
+                                                Anticipo del 50% pagado
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="btn btn-secondary" onclick="limpiarFormulario()">Limpiar</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Guardar Reservación
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gestión Huéspedes Section -->
+                <div id="huespedes-section" style="display: none;">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="fas fa-users"></i> Gestión de Huéspedes</h5>
+                            <div class="input-group" style="width: 300px;">
+                                <input type="text" class="form-control" placeholder="Buscar huésped..." id="buscar-huesped">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="tabla-huespedes">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>DPI</th>
+                                            <th>Teléfono</th>
+                                            <th>Habitación</th>
+                                            <th>Check-in</th>
+                                            <th>Check-out</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habitaciones Section -->
+                <div id="habitaciones-section" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-bed"></i> Estado de Habitaciones</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row" id="habitaciones-grid">
+                                        <!-- Se llena dinámicamente -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-plus"></i> Agregar/Editar Habitación</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form id="habitacion-form">
+                                        <div class="mb-3">
+                                            <label for="numero-habitacion" class="form-label">Número</label>
+                                            <input type="text" class="form-control" id="numero-habitacion" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="tipo-habitacion" class="form-label">Tipo</label>
+                                            <select class="form-select" id="tipo-habitacion" required>
+                                                <option value="Simple">Simple</option>
+                                                <option value="Doble">Doble</option>
+                                                <option value="Triple">Triple</option>
+                                                <option value="Suite">Suite</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="precio-habitacion" class="form-label">Precio por noche</label>
+                                            <input type="number" class="form-control" id="precio-habitacion" step="0.01" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="capacidad-habitacion" class="form-label">Capacidad</label>
+                                            <input type="number" class="form-control" id="capacidad-habitacion" min="1" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="estado-habitacion" class="form-label">Estado</label>
+                                            <select class="form-select" id="estado-habitacion">
+                                                <option value="Disponible">Disponible</option>
+                                                <option value="Ocupada">Ocupada</option>
+                                                <option value="Mantenimiento">Mantenimiento</option>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">
+                                            <i class="fas fa-save"></i> Guardar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reportes Section -->
+                <div id="reportes-section" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Reportes y Exportación</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Filtros de Reporte</h6>
+                                    <div class="mb-3">
+                                        <label for="fecha-inicio" class="form-label">Fecha Inicio</label>
+                                        <input type="date" class="form-control" id="fecha-inicio">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fecha-fin" class="form-label">Fecha Fin</label>
+                                        <input type="date" class="form-control" id="fecha-fin">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tipo-reporte" class="form-label">Tipo de Reporte</label>
+                                        <select class="form-select" id="tipo-reporte">
+                                            <option value="reservaciones">Reservaciones</option>
+                                            <option value="huespedes">Huéspedes</option>
+                                            <option value="ingresos">Ingresos</option>
+                                            <option value="ocupacion">Ocupación</option>
+                                        </select>
+                                    </div>
+                                    <button type="button" class="btn btn-success" onclick="generarReporte()">
+                                        <i class="fas fa-file-excel"></i> Generar Reporte Excel
+                                    </button>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Estadísticas Rápidas</h6>
+                                    <div id="estadisticas-rapidas">
+                                        <div class="alert alert-info">
+                                            <strong>Total Reservaciones:</strong> <span id="stat-reservaciones">0</span><br>
+                                            <strong>Ingresos Totales:</strong> <span id="stat-ingresos">Q0.00</span><br>
+                                            <strong>Ocupación Promedio:</strong> <span id="stat-ocupacion">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="editarReservacionModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Reservación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Contenido del modal se llena dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
