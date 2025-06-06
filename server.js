@@ -8,10 +8,11 @@ app.use(express.json());
 
 // Configura tu conexión MySQL
 const db = mysql.createConnection({
-    host: '127.0.1',
-    user: 'root',
-    password: 'Pablo2l3l4l5',
-    database: 'hotel_db'
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT
 });
 
 // Ejemplo: Obtener habitaciones
